@@ -910,6 +910,27 @@ export default Kapsule({
       }
     }
 
+    function segmentTextColor(value) {
+      let {r, g, b} = d3.color(value).rgb();
+      let luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      return luminance > 0.5 ? '#212529': '#FFFFFF';
+    }
+
+    function segmentText(self, d) {
+      if (!d.data.label) {
+        return '';
+      }
+      let element = d3Select(self);
+      let width = Math.max(0, state.xScale(d.timeRange[1]) - state.xScale(d.timeRange[0]) - 10);
+      let label = d.data.label;
+      element.text(label);
+      while (self.getComputedTextLength() > width) {
+        label = label.slice(0, -Math.ceil(label.length / 4));
+        element.text(label ? `${label}...` : '');
+      }
+      return element.text();
+    }    
+
     function renderGroups() {
 
       let groups = state.graph.selectAll('rect.series-group').data(state.structData, d => d.group);
@@ -959,9 +980,9 @@ export default Kapsule({
 
       state.lineHeight = state.graphH/state.nLines*0.8;
 
-      let timelines = state.graph.selectAll('rect.series-segment').data(
+      let timelines = state.graph.selectAll('.series-segment').data(
         state.flatData.filter(dataFilter),
-        d => d.group + d.label + d.timeRange[0]
+        d => d.group + d.label + d.data.label + d.timeRange[0]
       );
 
       timelines.exit()
@@ -969,16 +990,8 @@ export default Kapsule({
         .style('fill-opacity', 0)
         .remove();
 
-      const newSegments = timelines.enter().append('rect')
+      let newSegments = timelines.enter().append('svg')
         .attr('class', 'series-segment')
-        .attr('rx', 1)
-        .attr('ry', 1)
-        .attr('x', state.graphW/2)
-        .attr('y', state.graphH/2)
-        .attr('width', 0)
-        .attr('height', 0)
-        .style('fill', d => state.zColorScale(d.val))
-        .style('fill-opacity', 0)
         .on('mouseover.groupTooltip', state.groupTooltip.show)
         .on('mouseout.groupTooltip', state.groupTooltip.hide)
         .on('mouseover.lineTooltip', state.lineTooltip.show)
@@ -986,6 +999,25 @@ export default Kapsule({
         .on('mouseover.segmentTooltip', state.segmentTooltip.show)
         .on('mouseout.segmentTooltip', state.segmentTooltip.hide);
 
+        newSegments.append("rect")
+          .attr('class', 'segment-rect')
+          .attr('rx', '1')
+          .attr('ry', '1')
+          .attr('width', '100%')
+          .attr('height', '100%')
+          .attr('opacity', 1)
+          .style('fill', d => state.zColorScale(d.val));
+
+        newSegments.append("text")
+          .attr('class', 'segment-label')
+          .attr('x', '50%')
+          .attr('y', '50%')
+          .attr('dominant-baseline', 'middle')
+          .attr('text-anchor', 'middle')
+          .attr('fill', d => segmentTextColor(state.zColorScale(d.val)));
+
+
+  
       newSegments
         .on('mouseover', function() {
           if ('disableHover' in state && state.disableHover)
@@ -1030,7 +1062,7 @@ export default Kapsule({
         });
 
       timelines = timelines.merge(newSegments);
-
+  
       timelines.transition().duration(state.transDuration)
         .attr('x', function (d) {
           return state.xScale(d.timeRange[0]);
@@ -1043,7 +1075,11 @@ export default Kapsule({
         })
         .attr('height', state.lineHeight)
         .style('fill', d => state.zColorScale(d.val))
-        .style('fill-opacity', .8);
+        .style('fill-opacity', .8)
+        .select('.segment-label')
+          .text(function (d) {
+              return segmentText(this, d);
+            });
     }
   }
 });
