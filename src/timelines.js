@@ -1,5 +1,3 @@
-import './timelines.css';
-
 import Kapsule from 'kapsule';
 
 import {
