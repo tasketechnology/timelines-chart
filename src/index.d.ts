@@ -57,7 +57,9 @@ export interface TimelinesChartGenericInstance<ChainableInstance> {
   timeFormat(format: string): ChainableInstance;
   xTickFormat(): Formatter<Date> | null;
   xTickFormat(formatter: Formatter<Date> | null): ChainableInstance;
-  dateMarker(): TS | null | boolean;
+  xMaxTicks(): number;
+  xMaxTicks(max: number): ChainableInstance;
+  dateMarker(date: TS | null | boolean): ChainableInstance;
   dateMarker(date: TS | null | boolean): ChainableInstance;
   minSegmentDuration(): number;
   minSegmentDuration(duration: number): ChainableInstance;

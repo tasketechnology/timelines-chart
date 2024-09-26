@@ -100,6 +100,7 @@ export default Kapsule({
     bottomMargin: {default: 30 },
     useUtc: { default: false },
     xTickFormat: {},
+    xMaxTicks: { default: 12 },
     dateMarker: {},
     timeFormat: { default: '%Y-%m-%d %-I:%M:%S %p', triggerUpdate: false },
     zoomX: {  // Which time-range to show (null = min/max)
@@ -813,7 +814,7 @@ export default Kapsule({
         .attr('transform', 'translate(' + state.leftMargin + ',' + state.topMargin + ')');
 
       // X
-      const nXTicks = Math.max(2, Math.min(12, Math.round(state.graphW * 0.012)));
+      const nXTicks = Math.max(2, Math.min(state.xMaxTicks, Math.round(state.graphW * 0.012)));
 
       state.xAxis
         .scale(state.xScale)
