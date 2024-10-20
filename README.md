@@ -53,6 +53,7 @@ myChart
 | <b>xMaxTicks</b>([<i>number</i>]) | Getter/setter for the suggested number of x-axis ticks. | 12 |
 | <b>dateMarker</b>([<i>date object</i>]) | Getter/setter for the date marker to show as a vertical line. If a falsy value is used, no marker is shown. | `null` |
 | <b>minSegmentDuration</b>([<i>number</i>]) | Getter/setter for the minimum time duration (in msecs) of a segment in order for it to be shown. | 0 |
+| <b>minSegmentWidth</b>([<i>number</i>]) | Getter/setter for the minimum displayed px width of a segment. | 1 |
 | <b>getNLines</b>() | Returns number of timelines currently visible in the chart. | - |
 | <b>getTotalNLines</b>() | Returns total number of timelines in the chart. | - |
 | <b>zQualitative</b>([<i>boolean</i>]) | Getter/setter for whether the segment data color values are categorical (true) or quantitative (false). This will affect how the color legend is presented, and changing it will automatically toggle the `zColorScale` between defaults. | false |
