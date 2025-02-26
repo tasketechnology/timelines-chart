@@ -1,12 +1,12 @@
 import Kapsule from 'kapsule';
 import { min, max, range, ascending } from 'd3-array';
 import { axisBottom, axisTop, axisRight, axisLeft } from 'd3-axis';
-import { scaleSequential, scaleOrdinal, scalePoint, scaleLinear, scaleUtc, scaleTime } from 'd3-scale';
+import { scaleSequential, scaleUtc, scaleTime, scalePoint, scaleOrdinal, scaleLinear } from 'd3-scale';
 import { select, pointer } from 'd3-selection';
 import { utcFormat, timeFormat } from 'd3-time-format';
 import d3Tip from 'd3-tip';
 import { interpolateRdYlBu, schemeCategory10, schemeSet3 } from 'd3-scale-chromatic';
-import { gradient, moveToFront } from 'svg-utils';
+import { moveToFront, gradient } from 'svg-utils';
 import { fitToBox } from 'svg-text-fit';
 import ColorLegend from 'd3-color-legend';
 import { brushX } from 'd3-brush';

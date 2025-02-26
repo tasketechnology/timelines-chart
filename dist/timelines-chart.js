@@ -1,4 +1,4 @@
-// Version 2.14.0 timelines-chart - https://github.com/vasturiano/timelines-chart
+// Version 2.14.1 timelines-chart - https://github.com/vasturiano/timelines-chart
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -524,7 +524,7 @@
   }
   function _createClass(e, r, t) {
     return Object.defineProperty(e, "prototype", {
-      writable: !1
+      writable: false
     }), e;
   }
   function _iterableToArrayLimit(r, l) {
@@ -535,12 +535,12 @@
         i,
         u,
         a = [],
-        f = !0,
-        o = !1;
+        f = true,
+        o = false;
       try {
         if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
       } catch (r) {
-        o = !0, n = r;
+        o = true, n = r;
       } finally {
         try {
           if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
@@ -2647,7 +2647,7 @@
           if (step < 0) while (++step <= 0) {
             while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
           } else while (--step >= 0) {
-            while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+            while (offseti(date, 1), !test(date)) {} // eslint-disable-line no-empty
           }
         }
       });
@@ -6249,8 +6249,6 @@
         _ref$margin = _ref.margin,
         margin = _ref$margin === void 0 ? {
           top: 2,
-          right: 2,
-          bottom: 2,
           left: 2
         } : _ref$margin;
       state.xScale.range([margin.left, width - state.margin.right]);
@@ -8786,11 +8784,7 @@
   };
 
   var Y = {
-    name: "y",
-    handles: ["n", "s"].map(type),
-    input: function(y, e) { return y == null ? null : [[e[0][0], +y[0]], [e[1][0], +y[1]]]; },
-    output: function(xy) { return xy && [xy[0][1], xy[1][1]]; }
-  };
+    };
 
   var cursors = {
     overlay: "crosshair",
@@ -8824,29 +8818,29 @@
   };
 
   var signsX = {
-    overlay: +1,
-    selection: +1,
+    overlay: 1,
+    selection: 1,
     n: null,
-    e: +1,
+    e: 1,
     s: null,
     w: -1,
     nw: -1,
-    ne: +1,
-    se: +1,
+    ne: 1,
+    se: 1,
     sw: -1
   };
 
   var signsY = {
-    overlay: +1,
-    selection: +1,
+    overlay: 1,
+    selection: 1,
     n: -1,
     e: null,
-    s: +1,
+    s: 1,
     w: null,
     nw: -1,
     ne: -1,
-    se: +1,
-    sw: +1
+    se: 1,
+    sw: 1
   };
 
   function type(t) {
