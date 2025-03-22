@@ -118,4 +118,5 @@ declare class TimelinesChart {
   refresh(): TimelinesChart;
 }
 
-export { type Group, type Line, type Segment, type TS, type Val, TimelinesChart as default };
+export { TimelinesChart as default };
+export type { Group, Line, Segment, TS, Val };

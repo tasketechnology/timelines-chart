@@ -1,4 +1,4 @@
-// Version 2.14.1 timelines-chart - https://github.com/vasturiano/timelines-chart
+// Version 2.14.2 timelines-chart - https://github.com/vasturiano/timelines-chart
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
